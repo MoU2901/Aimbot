@@ -1,0 +1,10 @@
+﻿  AimBot.cpp
+D:\CppVisualStudio\AimBot\AimBot\AimBot.cpp(69,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\CppVisualStudio\AimBot\AimBot\AimBot.cpp(70,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\CppVisualStudio\AimBot\AimBot\AimBot.cpp(215,75): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+  Generating code
+  0 of 104 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  AimBot.vcxproj -> D:\CppVisualStudio\AimBot\Release\AimBot.exe

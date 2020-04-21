@@ -1,6 +1,0 @@
-﻿  AimBot.cpp
-D:\CppVisualStudio\Aimbot\AimBot\AimBot.cpp(83,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\CppVisualStudio\Aimbot\AimBot\AimBot.cpp(84,40): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
-D:\CppVisualStudio\Aimbot\AimBot\AimBot.cpp(227,75): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-  LINK : D:\CppVisualStudio\Aimbot\Debug\AimBot.exe not found or not built by the last incremental link; performing full link
-  AimBot.vcxproj -> D:\CppVisualStudio\Aimbot\Debug\AimBot.exe

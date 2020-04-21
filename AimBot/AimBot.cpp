@@ -206,7 +206,7 @@ int main()
                             }
                         }
 
-                        int minchange = 100;
+                        float minchange = 100;
                         int closestentity = 0;
 
                         for (int i = 1; i <= maxplayer; i++)

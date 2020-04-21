@@ -3,17 +3,14 @@
 class Point
 {
 public:
-    float x = 0.0f;
-    float y = 0.0f;
-    float z = 0.0f;
+    float x;
+    float y;
+    float z;
 
-    double distance(const Point& p)
-    {
-        return sqrt((x - p.x) * (x - p.x) + (y - p.y) * (y - p.y) + (z - p.z) * (z - p.z));
-    }
+    float distance(const Point& p) const;
 };
 
-class Player
+struct Player
 {
 public:
     int hp;

@@ -54,7 +54,7 @@ int GetClosest(Player entity[64], Player myplayer, int maxplayer)
 
     for (int i = 1; i <= maxplayer; i++)
     {
-        dist = sqrt((myplayer.pos[0] - entity[i].pos[0]) * (myplayer.pos[0] - entity[i].pos[0]) + (myplayer.pos[1] - entity[i].pos[1]) * (myplayer.pos[1] - entity[i].pos[1]) + (myplayer.pos[2] - entity[i].pos[2]) * (myplayer.pos[2] - entity[i].pos[2]));
+        dist = sqrt((myplayer.pos.x - entity[i].pos.x) * (myplayer.pos.x - entity[i].pos.x) + (myplayer.pos.y - entity[i].pos.y) * (myplayer.pos.y - entity[i].pos.y) + (myplayer.pos.z - entity[i].pos.z) * (myplayer.pos.z - entity[i].pos.z));
         if (dist < clo_dist && entity[i].hp > 0 && entity[i].team != myplayer.team)
         {
             clo_dist = dist;
@@ -67,19 +67,19 @@ int GetClosest(Player entity[64], Player myplayer, int maxplayer)
 
 vector<float> Aim(Player entity[64], Player myplayer, int closest)
 {
-    float angles[3];
-    double delta[3] = { (myplayer.pos[0] - entity[closest].pos[0]), (myplayer.pos[1] - entity[closest].pos[1]), (myplayer.pos[2] - entity[closest].pos[2]) };
+    Point angles;
+    double delta[3] = { (myplayer.pos.x - entity[closest].pos.x), (myplayer.pos.y - entity[closest].pos.y), (myplayer.pos.z - entity[closest].pos.z) };
     double hyp = sqrt(delta[0] * delta[0] + delta[1] * delta[1] + delta[2] * delta[2]);
-    angles[0] = (float)(asinf(delta[2] / hyp) * 57.295779513082f);
-    angles[1] = (float)(atanf(delta[1] / delta[0]) * 57.295779513082f);
-    angles[2] = 0.0f;
-    if (delta[0] >= 0.0) { angles[1] += 180.0f; }
-    if (angles[1] > 180) { angles[1] = angles[1] - 360; }
+    angles.x = (float)(asinf(delta[2] / hyp) * 57.295779513082f);
+    angles.y = (float)(atanf(delta[1] / delta[0]) * 57.295779513082f);
+    angles.z = 0.0f;
+    if (delta[0] >= 0.0) { angles.y += 180.0f; }
+    if (angles.y > 180) { angles.y = angles.y - 360; }
 
     vector<float> angles_vec;
-    angles_vec.push_back(angles[0]);
-    angles_vec.push_back(angles[1]);
-    if (angles[1] > -180 && angles[1] <= 180 && angles[0] <= 89 && angles[0] > -89)
+    angles_vec.push_back(angles.x);
+    angles_vec.push_back(angles.y);
+    if (angles.y > -180 && angles.y <= 180 && angles.x <= 89 && angles.x > -89)
         return angles_vec;
     else
     {
@@ -173,9 +173,15 @@ int main()
                         ReadProcessMemory(proces, (LPCVOID)(player + netvars::m_vecOrigin), (PVOID)&myplayer.pos, sizeof(myplayer.pos), 0);
                         ReadProcessMemory(proces, (LPCVOID)(player + netvars::m_vecViewOffset), (PVOID)&pos_add, sizeof(pos_add), 0);
 
-                        myplayer.pos[2] += pos_add[2];
+                        myplayer.pos.x += pos_add[0];
+                        myplayer.pos.y += pos_add[1];
+                        myplayer.pos.z += pos_add[2];
 
-                        ReadProcessMemory(proces, (LPCVOID)(dwclient + signatures::dwClientState_ViewAngles), (PVOID)&myplayer.ang, sizeof(myplayer.ang), 0);
+                        ReadProcessMemory(proces, (LPCVOID)(dwclient + signatures::dwClientState_ViewAngles), (PVOID)&pos_add, sizeof(pos_add), 0);
+
+                        myplayer.ang.x = pos_add[0];
+                        myplayer.ang.y = pos_add[1];
+                        myplayer.ang.z = pos_add[2];
 
                         maxplayer = 0;
 
@@ -194,9 +200,9 @@ int main()
                                 ReadProcessMemory(proces, (LPCVOID)(ent + netvars::m_vecOrigin), (PVOID)&entity[i].pos, sizeof(entity[i].pos), 0);
                                 DWORD basebone;
                                 ReadProcessMemory(proces, (LPCVOID)(ent + netvars::m_dwBoneMatrix), (PVOID)&basebone, sizeof(basebone), 0);
-                                ReadProcessMemory(proces, (LPCVOID)(basebone + (tryb * 4) * 0x30 + 0x0C), (PVOID)&entity[i].pos[0], sizeof(entity[i].pos[0]), 0);
-                                ReadProcessMemory(proces, (LPCVOID)(basebone + (tryb * 4) * 0x30 + 0x1C), (PVOID)&entity[i].pos[1], sizeof(entity[i].pos[1]), 0);
-                                ReadProcessMemory(proces, (LPCVOID)(basebone + (tryb * 4) * 0x30 + 0x2C), (PVOID)&entity[i].pos[2], sizeof(entity[i].pos[2]), 0);
+                                ReadProcessMemory(proces, (LPCVOID)(basebone + (tryb * 4) * 0x30 + 0x0C), (PVOID)&entity[i].pos.x, sizeof(entity[i].pos.x), 0);
+                                ReadProcessMemory(proces, (LPCVOID)(basebone + (tryb * 4) * 0x30 + 0x1C), (PVOID)&entity[i].pos.y, sizeof(entity[i].pos.y), 0);
+                                ReadProcessMemory(proces, (LPCVOID)(basebone + (tryb * 4) * 0x30 + 0x2C), (PVOID)&entity[i].pos.z, sizeof(entity[i].pos.z), 0);
                             }
                         }
 
@@ -210,8 +216,8 @@ int main()
                             angles[0] = angle[0];
                             angles[1] = angle[1];
                             angles[2] = 0;
-                            float changex = (myplayer.ang[0] - angles[0]);
-                            float changey = (myplayer.ang[1] - angles[1]);
+                            float changex = (myplayer.ang.x - angles[0]);
+                            float changey = (myplayer.ang.y - angles[1]);
                             if ((abs(changex) + abs(changey)) / 2 < minchange && entity[i].team != myplayer.team && entity[i].hp > 0 && entity[i].isSpotted == true && entity[i].strzelono == false)
                             {
                                 minchange = (abs(changex) + abs(changey)) / 2;
@@ -227,8 +233,8 @@ int main()
                             angles[0] = angle[0];
                             angles[1] = angle[1];
                             angles[2] = 0;
-                            float changex = (myplayer.ang[0] - angles[0]);
-                            float changey = (myplayer.ang[1] - angles[1]);
+                            float changex = (myplayer.ang.x - angles[0]);
+                            float changey = (myplayer.ang.y - angles[1]);
 
                             if (GetAsyncKeyState(VK_LBUTTON))
                             {
@@ -236,12 +242,17 @@ int main()
                                 {
                                     for (int i = 0; i < 5; i++)
                                     {
-                                        myplayer.ang[0] -= changex / 5;
-                                        myplayer.ang[1] -= changey / 5;
+                                        myplayer.ang.x -= changex / 5;
+                                        myplayer.ang.y -= changey / 5;
+
+                                        float ang[3];
+                                        ang[0] = myplayer.ang.x;
+                                        ang[1] = myplayer.ang.y;
+                                        ang[2] = myplayer.ang.z;
 
                                         CloseHandle(proces);
                                         proces = OpenProcess(PROCESS_VM_WRITE | PROCESS_VM_OPERATION, false, pid);
-                                        WriteProcessMemory(proces, (LPVOID)(dwclient + signatures::dwClientState_ViewAngles), myplayer.ang, sizeof(angles), 0);
+                                        WriteProcessMemory(proces, (LPVOID)(dwclient + signatures::dwClientState_ViewAngles), ang, sizeof(ang), 0);
                                         CloseHandle(proces);
                                         proces = OpenProcess(PROCESS_VM_READ, false, pid);
 

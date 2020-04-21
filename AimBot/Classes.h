@@ -1,12 +1,21 @@
 #pragma once
 
+class Point
+{
+public:
+    float x;
+    float y;
+    float z;
+
+};
+
 class Player
 {
 public:
     int hp;
     int team;
     bool isSpotted;
-    float pos[3];
-    float ang[3];
+    Point pos;
+    Point ang;
     bool strzelono = false;
 };

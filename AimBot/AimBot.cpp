@@ -92,7 +92,7 @@ HANDLE proces;
 int main()
 {
     SYSTEMTIME st;
-    int chwila = NULL;
+    int moment = NULL;
 
     bool ifplay = false;
     int maxplayer = 0;
@@ -142,9 +142,9 @@ int main()
                     {
 
                         GetSystemTime(&st);
-                        if (st.wSecond % 3 == 0 && chwila != st.wSecond)
+                        if (st.wSecond % 3 == 0 && moment != st.wSecond)
                         {
-                            chwila = st.wSecond;
+                            moment = st.wSecond;
                             for (int i = 1; i < 64; i++)
                             {
                                 entity[i].strzelono = false;

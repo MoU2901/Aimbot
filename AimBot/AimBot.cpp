@@ -9,7 +9,8 @@
 #include <vector>
 #include <string.h>
 #include "haze.h"
-#include "Classes.h"
+#include "Point.h"
+#include "Player.h"
 
 DWORD GetModuleBaseAddress(LPSTR ModuleName, DWORD pid)
 {

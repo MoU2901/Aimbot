@@ -1,5 +1,5 @@
 #include <math.h>
-#include "Classes.h" 
+#include "Point.h"
 
 float Point::distance(const Point& p)const
 {

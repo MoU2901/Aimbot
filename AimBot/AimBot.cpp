@@ -11,6 +11,8 @@
 #include "haze.h"
 #include "Classes.h"
 
+a
+
 DWORD GetModuleBaseAddress(LPSTR ModuleName, DWORD pid)
 {
     MODULEENTRY32 module32;

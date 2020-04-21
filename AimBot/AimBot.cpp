@@ -9,6 +9,7 @@
 #include <vector>
 #include <string.h>
 #include "haze.h"
+#include "Classes.h"
 
 DWORD GetModuleBaseAddress(LPSTR ModuleName, DWORD pid)
 {
@@ -44,17 +45,6 @@ DWORD GetModuleBaseAddress(LPSTR ModuleName, DWORD pid)
 
 using namespace std;
 using namespace hazedumper;
-
-class Player
-{
-public:
-    int hp;
-    int team;
-    bool isSpotted;
-    float pos[3];
-    float ang[3];
-    bool strzelono = false;
-};
 
 int GetClosest(Player entity[64], Player myplayer, int maxplayer)
 {

@@ -54,7 +54,7 @@ int GetClosest(Player entity[64], Player myplayer, int maxplayer)
 
     for (int i = 1; i <= maxplayer; i++)
     {
-        dist = sqrt((myplayer.pos.x - entity[i].pos.x) * (myplayer.pos.x - entity[i].pos.x) + (myplayer.pos.y - entity[i].pos.y) * (myplayer.pos.y - entity[i].pos.y) + (myplayer.pos.z - entity[i].pos.z) * (myplayer.pos.z - entity[i].pos.z));
+        dist = myplayer.pos.distance(entity[i].pos);
         if (dist < clo_dist && entity[i].hp > 0 && entity[i].team != myplayer.team)
         {
             clo_dist = dist;

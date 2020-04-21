@@ -7,6 +7,10 @@ public:
     float y;
     float z;
 
+    double distance(const Point& p)
+    {
+        return sqrt((x - p.x) * (x - p.x) + (y - p.y) * (y - p.y) + (z - p.z) * (z - p.z));
+    }
 };
 
 class Player

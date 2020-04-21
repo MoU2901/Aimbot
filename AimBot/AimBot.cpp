@@ -68,8 +68,8 @@ int GetClosest(Player entity[64], Player myplayer, int maxplayer)
 vector<float> Aim(Player entity[64], Player myplayer, int closest)
 {
     Point angles;
-    double delta[3] = { (myplayer.pos.x - entity[closest].pos.x), (myplayer.pos.y - entity[closest].pos.y), (myplayer.pos.z - entity[closest].pos.z) };
-    double hyp = sqrt(delta[0] * delta[0] + delta[1] * delta[1] + delta[2] * delta[2]);
+    float delta[3] = { (myplayer.pos.x - entity[closest].pos.x), (myplayer.pos.y - entity[closest].pos.y), (myplayer.pos.z - entity[closest].pos.z) };
+    float hyp = sqrt(delta[0] * delta[0] + delta[1] * delta[1] + delta[2] * delta[2]);
     angles.x = (float)(asinf(delta[2] / hyp) * 57.295779513082f);
     angles.y = (float)(atanf(delta[1] / delta[0]) * 57.295779513082f);
     angles.z = 0.0f;

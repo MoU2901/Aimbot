@@ -9,5 +9,5 @@ public:
     bool isSpotted;
     Point pos;
     Point ang;
-    bool strzelono = false;
+    bool shooted = false;
 };

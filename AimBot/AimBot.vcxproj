@@ -151,6 +151,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AimBot.cpp" />
+    <ClCompile Include="Classes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="haze.h" />

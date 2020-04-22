@@ -1,0 +1,7 @@
+version: 1.0.{build}
+
+build:
+
+  verbosity: minimal
+  
+ vstest.console /logger:Appveyor <assembly> /Tests: TestMethod1

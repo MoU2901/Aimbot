@@ -3,5 +3,6 @@ version: 1.0.{build}
 build:
 
   verbosity: minimal
-  
- vstest.console /logger:Appveyor <assembly> /Tests: TestMethod1
+
+test_script:
+  - vstest.console /logger:Appveyor C:\projects\aimbot\x64\Debug\UnitTest.dll

@@ -8,6 +8,7 @@
 #include <tlhelp32.h>
 #include <vector>
 #include <string.h>
+#include <thread>
 #include "haze.h"
 #include "Point.h"
 #include "Player.h"
@@ -91,15 +92,15 @@ vector<float> Aim(Player entity[64], Player myplayer, int closest)
 void Attack()
 {
     keybd_event(VK_F1, MapVirtualKey(VK_F1, 0), 0, 0);
-    Sleep(2);
+    this_thread::sleep_for(25ms);
     keybd_event(VK_F1, MapVirtualKey(VK_F1, 0), 2, 0);
-    Sleep(20);
+    this_thread::sleep_for(25ms);
 }
-
-HANDLE process;
 
 int main()
 {
+    HANDLE process;
+
     SYSTEMTIME st;
     int moment = NULL;
 
@@ -266,7 +267,7 @@ int main()
                                         CloseHandle(process);
                                         process = OpenProcess(PROCESS_VM_READ, false, pid);
 
-                                        Sleep(2);
+                                        this_thread::sleep_for(2ms);
                                     }
                                     entity[closestentity].shooted = true;
                                 }
@@ -280,7 +281,7 @@ int main()
                                 Attack();
                             }
                         }
-                        Sleep(1);
+                        this_thread::sleep_for(1ms);
                     }
                 }
                 else
@@ -296,11 +297,11 @@ int main()
         {
             cout << "Nie znaleziono procesu cs:go";
         }
+        CloseHandle(process);
     }
     else
     {
         cout << "Nie znaleziono okna cs:go";
     }
-    CloseHandle(process);
     return 0;
 }
